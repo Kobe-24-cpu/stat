@@ -57,7 +57,7 @@ export default function Home() {
   // État pour gérer l'élément actuellement ouvert en plein écran
   const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
 
-  // Banque de données contenant tes 5 vidéos et 5 photos
+  // Banque de données contenant tes vidéos et photos
   const videos: MediaItem[] = [
     { id: "v1", type: "video", src: "/videos/VideoApexUT.mp4", title: "Dribble & Cross" },
     { id: "v2", type: "video", src: "/videos/VideoApexUT4.mp4", title: "Shoot Parfait Swish" },
@@ -92,37 +92,41 @@ export default function Home() {
       {/* ── HERO (carrousel + slogan + CTA) ── */}
       <Hero />
 
-      {/* ── NOUVELLE SECTION MÉDIAS DYNAMIQUE (5 VIDÉOS & 5 PHOTOS) ── */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "60px 24px 80px" }}>
-        <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 32, fontWeight: 900, marginBottom: 8, letterSpacing: 1 }}>
+      {/* ── SECTION MÉDIAS DYNAMIQUE COMPATIBLE SMARTPHONE (CARROUSEL HORIZONTAL) ── */}
+      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 60px", overflow: "hidden" }}>
+        <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 32, fontWeight: 900, marginBottom: 4, letterSpacing: 1 }}>
           GALERIE MULTIMÉDIA <span style={{ color: "#F97316" }}>APEXUT</span>
         </h2>
-        <p style={{ fontSize: 14, color: "#78716C", marginBottom: 24 }}>Clique sur n'importe quelle vidéo 4K ou photo pour l'agrandir instantanément en plein écran.</p>
+        <p style={{ fontSize: 14, color: "#78716C", marginBottom: 24 }}>
+          Sur mobile, glisse vers la droite pour faire défiler la galerie. Clique sur un média pour le plein écran.
+        </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
+        {/* Conteneur principal géré par la règle responsive CSS insérée en bas */}
+        <div 
+          className="media-gallery-container"
+          style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", 
+            gap: 16 
+          }}
+        >
           
-          {/* Rendu des 5 Vidéos */}
+          {/* Rendu des Vidéos */}
           {videos.map((vid, idx) => (
             <div
               key={vid.id}
               onClick={() => setActiveMedia(vid)}
+              className="media-card"
               style={{
                 position: "relative",
-                height: 220,
+                height: 240,
                 background: "#2C2925",
                 borderRadius: 14,
                 overflow: "hidden",
                 cursor: "pointer",
                 border: "1px solid rgba(249,115,22,0.1)",
-                transition: "transform 0.2s, border-color 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.02)";
-                e.currentTarget.style.borderColor = "#F97316";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.borderColor = "rgba(249,115,22,0.1)";
+                transition: "transform 0.2s",
+                flexShrink: 0,
               }}
             >
               <video
@@ -134,35 +138,29 @@ export default function Home() {
                 style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }}
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)", display: "flex", flexDirection: "column", justifyContent: "end", padding: 14 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#F97316", letterSpacing: 1, textTransform: "uppercase" }}>VIDÉO {idx + 1}</span>
+                <span style={{ fontSize: 11, fontWeight: 800, color: "#F97316", letterSpacing: 1 }}>VIDÉO {idx + 1}</span>
                 <span style={{ fontSize: 14, fontWeight: 600, color: "#F5F5F4" }}>{vid.title}</span>
               </div>
-              <span style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.6)", padding: "6px 10px", borderRadius: 20, fontSize: 12 }}>🎬 4K</span>
+              <span style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.6)", padding: "4px 8px", borderRadius: 20, fontSize: 11 }}>🎬 4K</span>
             </div>
           ))}
 
-          {/* Rendu des 5 Photos */}
+          {/* Rendu des Photos */}
           {photos.map((pic, idx) => (
             <div
               key={pic.id}
               onClick={() => setActiveMedia(pic)}
+              className="media-card"
               style={{
                 position: "relative",
-                height: 220,
+                height: 240,
                 background: "#2C2925",
                 borderRadius: 14,
                 overflow: "hidden",
                 cursor: "pointer",
                 border: "1px solid rgba(255,255,255,0.05)",
-                transition: "transform 0.2s, border-color 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.02)";
-                e.currentTarget.style.borderColor = "#F97316";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)";
+                transition: "transform 0.2s",
+                flexShrink: 0,
               }}
             >
               <img
@@ -171,10 +169,10 @@ export default function Home() {
                 style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)", display: "flex", flexDirection: "column", justifyContent: "end", padding: 14 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#78716C", letterSpacing: 1, textTransform: "uppercase" }}>PHOTO {idx + 1}</span>
+                <span style={{ fontSize: 11, fontWeight: 800, color: "#78716C", letterSpacing: 1 }}>PHOTO {idx + 1}</span>
                 <span style={{ fontSize: 14, fontWeight: 600, color: "#F5F5F4" }}>{pic.title}</span>
               </div>
-              <span style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.6)", padding: "6px 10px", borderRadius: 20, fontSize: 12 }}>📸 HD</span>
+              <span style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.6)", padding: "4px 8px", borderRadius: 20, fontSize: 11 }}>📸 HD</span>
             </div>
           ))}
 
@@ -196,7 +194,6 @@ export default function Home() {
             justifyContent: "center",
             padding: 24,
             backdropFilter: "blur(8px)",
-            animation: "fadeIn 0.2s ease-out",
           }}
         >
           {/* Bouton de fermeture */}
@@ -217,20 +214,18 @@ export default function Home() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              transition: "background 0.2s"
+              zIndex: 10000,
             }}
-            onMouseEnter={(e) => e.currentTarget.style.background = "#F97316"}
-            onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
           >
             ✕
           </button>
 
           {/* Zone d'affichage du média agrandi */}
           <div
-            onClick={(e) => e.stopPropagation()} // Évite de fermer en cliquant sur le média
+            onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: "90%",
-              maxHeight: "75vh",
+              maxWidth: "100%",
+              maxHeight: "70vh",
               boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
               borderRadius: 12,
               overflow: "hidden",
@@ -242,29 +237,28 @@ export default function Home() {
                 src={activeMedia.src}
                 controls
                 autoPlay
-                style={{ width: "100%", maxHeight: "75vh", display: "block" }}
+                style={{ width: "100%", maxHeight: "70vh", display: "block" }}
               />
             ) : (
               <img
                 src={activeMedia.src}
                 alt={activeMedia.title}
-                style={{ width: "100%", maxHeight: "75vh", objectFit: "contain", display: "block" }}
+                style={{ width: "100%", maxHeight: "70vh", objectFit: "contain", display: "block" }}
               />
             )}
           </div>
 
           {/* Légende sous le média */}
-          <div style={{ marginTop: 20, textAlign: "center" }}>
+          <div style={{ marginTop: 20, textAlign: "center", padding: "0 20px" }}>
             <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 26, fontWeight: 800, color: "#F97316", margin: "0 0 4px 0" }}>
               {activeMedia.title.toUpperCase()}
             </h3>
             <p style={{ color: "#78716C", fontSize: 14, margin: 0 }}>
-              Mode Cinéma ApexUT — Cliquez n'importe où en dehors pour quitter
+              Mode Cinéma ApexUT — Cliquez en dehors pour quitter
             </p>
           </div>
         </div>
       )}
-
 
       {/* ── EFFECTIF ── */}
       <section style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 80px" }}>
@@ -338,6 +332,31 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {/* ── STYLE RESPONSIVE INJECTÉ POUR LE FAIT DE FILER DE GAUCHE À DROITE SUR MOBILE ── */}
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .media-gallery-container {
+            display: flex !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 12px;
+            gap: 12px !important;
+          }
+          .media-card {
+            width: 270px !important;
+            scroll-snap-align: start;
+          }
+          .media-gallery-container::-webkit-scrollbar {
+            height: 4px;
+          }
+          .media-gallery-container::-webkit-scrollbar-thumb {
+            background-color: rgba(249, 115, 22, 0.4);
+            border-radius: 10px;
+          }
+        }
+      `}</style>
     </div>
   );
 }

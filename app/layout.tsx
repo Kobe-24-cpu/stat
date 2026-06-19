@@ -15,16 +15,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html 
+      lang="fr" 
+      suppressHydrationWarning 
+      style={{ width: "100%", overflowX: "hidden", margin: 0, padding: 0 }}
+    >
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body style={{ margin: 0, padding: 0, background: "#1C1917", color: "#F5F5F4" }}>
+      <body 
+        style={{ 
+          margin: 0, 
+          padding: 0, 
+          background: "#1C1917", 
+          color: "#F5F5F4",
+          width: "100%",
+          maxWidth: "100vw",
+          overflowX: "hidden"
+        }}
+      >
         <Header />
-        <main>{children}</main>
+        {/* Le conteneur main hérite aussi de la protection anti-débordement */}
+        <main style={{ width: "100%", overflowX: "hidden" }}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
