@@ -48,7 +48,6 @@ export default function JoueursPage() {
     marginBottom: 6,
   };
 
-  // 👉 "(optionnel)" en blanc, bien visible
   const optionalStyle = {
     fontSize: 11,
     color: "#F5F5F4",
@@ -68,28 +67,38 @@ export default function JoueursPage() {
   };
 
   const envoyer = () => {
-    if (!nom || !prenom || !numero) return;
+    // CORRECTION : Alerte claire si des champs obligatoires sont vides
+    if (!nom.trim() || !prenom.trim() || !numero.trim()) {
+      alert("⚠️ Veuillez remplir le Prénom, le Nom et le Numéro de maillot !");
+      return;
+    }
 
     const pending: PendingJoueur = {
       id: Date.now().toString(),
-      nom: nom.toUpperCase(),
-      prenom,
-      surnom,
-      numero,
+      nom: nom.trim().toUpperCase(),
+      prenom: prenom.trim(),
+      surnom: surnom.trim(),
+      numero: numero.trim(),
       poste,
       age,
-      instagram,
-      tiktok,
-      dateInscription: new Date().toLocaleDateString(),
+      instagram: instagram.trim(),
+      tiktok: tiktok.trim(),
+      dateInscription: new Date().toLocaleDateString("fr-FR"),
       statut: "en_attente",
     };
 
-    const existing = localStorage.getItem("hoop_pending");
-    const list: PendingJoueur[] = existing ? JSON.parse(existing) : [];
-    list.push(pending);
-    localStorage.setItem("hoop_pending", JSON.stringify(list));
-
-    setSubmitted(true);
+    try {
+      const existing = localStorage.getItem("hoop_pending");
+      const list: PendingJoueur[] = existing ? JSON.parse(existing) : [];
+      list.push(pending);
+      localStorage.setItem("hoop_pending", JSON.stringify(list));
+      
+      // Confirmation visuelle du succès
+      setSubmitted(true);
+    } catch (e) {
+      alert("Une erreur est survenue lors de l'enregistrement.");
+      console.error(e);
+    }
   };
 
   if (submitted) {
@@ -177,11 +186,11 @@ export default function JoueursPage() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <div>
-                <label style={labelStyle}>Prénom</label>
+                <label style={labelStyle}>Prénom *</label>
                 <input style={inputStyle} placeholder="ex: Baye Zalle" value={prenom} onChange={(e) => setPrenom(e.target.value)} />
               </div>
               <div>
-                <label style={labelStyle}>Nom</label>
+                <label style={labelStyle}>Nom *</label>
                 <input style={inputStyle} placeholder="ex: Goudiaby" value={nom} onChange={(e) => setNom(e.target.value)} />
               </div>
             </div>
@@ -191,13 +200,13 @@ export default function JoueursPage() {
                 Surnom
                 <span style={optionalStyle}>optionnel</span>
               </label>
-              <input style={inputStyle} placeholder="ex: Goudiaby ou Kobe ou Sniper ou Curry..." value={surnom} onChange={(e) => setSurnom(e.target.value)} />
+              <input style={inputStyle} placeholder="ex: Sniper, Kobe..." value={surnom} onChange={(e) => setSurnom(e.target.value)} />
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <div>
-                <label style={labelStyle}>Numéro</label>
-                <input style={inputStyle} type="number" placeholder="23" value={numero} onChange={(e) => setNumero(e.target.value)} />
+                <label style={labelStyle}>Numéro *</label>
+                <input style={inputStyle} type="text" pattern="[0-9]*" placeholder="23" value={numero} onChange={(e) => setNumero(e.target.value)} />
               </div>
               <div>
                 <label style={labelStyle}>
@@ -227,23 +236,18 @@ export default function JoueursPage() {
               </select>
             </div>
 
-            {/* Réseaux sociaux */}
-            <div style={{
-              borderTop: "1px solid rgba(255,255,255,0.06)",
-              paddingTop: 16,
-              marginTop: 4,
-            }}>
-              <p style={{ fontSize: 11, color: "#78716C", marginBottom: 14, textTransform: "uppercase", letterSpacing: 1, display: "flex", alignItems: "center" }}>
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16, marginTop: 4 }}>
+              <p style={{ fontSize: 11, color: "#78716C", marginBottom: 14, textTransform: "uppercase", letterSpacing: 1 }}>
                 Réseaux sociaux <span style={optionalStyle}>optionnels</span>
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <label style={labelStyle}>📸 Instagram</label>
-                  <input style={inputStyle} placeholder="@pseudo" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
+                  <input style={inputStyle} placeholder="pseudo (ex: kobe_24)" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
                 </div>
                 <div>
                   <label style={labelStyle}>🎵 TikTok</label>
-                  <input style={inputStyle} placeholder="@pseudo" value={tiktok} onChange={(e) => setTiktok(e.target.value)} />
+                  <input style={inputStyle} placeholder="pseudo (ex: kobe_tiktok)" value={tiktok} onChange={(e) => setTiktok(e.target.value)} />
                 </div>
               </div>
             </div>
@@ -266,10 +270,6 @@ export default function JoueursPage() {
             >
               ENVOYER MA DEMANDE →
             </button>
-
-            <p style={{ fontSize: 13, color: "#F5F5F4", textAlign: "center", marginTop: 4, fontWeight: 500 }}>
-              Ton profil sera examiné par l'administrateur avant publication.
-            </p>
           </div>
         </div>
       </div>

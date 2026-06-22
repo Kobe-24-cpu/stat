@@ -95,7 +95,7 @@ export default function Home() {
       {/* ── SECTION MÉDIAS DYNAMIQUE COMPATIBLE SMARTPHONE (CARROUSEL HORIZONTAL) ── */}
       <section style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 24px 60px", overflow: "hidden" }}>
         <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 32, fontWeight: 900, marginBottom: 4, letterSpacing: 1 }}>
-          GALERIE MULTIMÉDIA <span style={{ color: "#F97316" }}>APEXUT</span>
+          🎬 HIGHLIGHTS <span style={{ color: "#F97316" }}>APEXUT</span>
         </h2>
         <p style={{ fontSize: 14, color: "#78716C", marginBottom: 24 }}>
           Sur mobile, glisse vers la droite pour faire défiler la galerie. Clique sur un média pour le plein écran.
