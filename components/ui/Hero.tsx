@@ -30,8 +30,8 @@ export default function Hero() {
       backgroundImage: "url('/images/photo8.jpeg')",
       backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat",
     }}>
-      {/* Overlay */}
-      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(28, 25, 23, 0.75)", zIndex: 1 }} />
+      {/* Overlay MODIFIÉ pour éclaircir */}
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(28, 25, 23, 0.5)", zIndex: 1 }} />
 
       {/* Contenu */}
       <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 800, padding: "0 20px" }}>
