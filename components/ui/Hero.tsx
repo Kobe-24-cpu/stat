@@ -56,24 +56,6 @@ export default function Hero() {
             🏀 REJOINDRE LA LIGUE
           </Link>
         </div>
-
-        {/* Compteurs live Supabase */}
-        <div style={{ display: "flex", gap: 48, justifyContent: "center", paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-          {[
-            { num: joueurs, label: "Joueurs inscrits" },
-            { num: matchs,  label: "Matchs enregistrés" },
-            { num: 5,       label: "Postes analysés" },
-          ].map((s) => (
-            <div key={s.label} style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 46, fontWeight: 900, color: "#F97316", lineHeight: 1 }}>
-                {s.num}
-              </div>
-              <div style={{ fontSize: 11, color: "#78716C", marginTop: 6, textTransform: "uppercase", letterSpacing: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
