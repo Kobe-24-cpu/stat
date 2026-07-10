@@ -280,6 +280,24 @@ function ProfilView({ joueurs, stats, profilActif, top5, moyennesTop5, onSelectP
             <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 10px", borderRadius: 4, background: `${POSTE_COLORS[profilActif.poste] || colors.accent}22`, color: POSTE_COLORS[profilActif.poste] || colors.accent, textTransform: "uppercase" }}>
               {profilActif.poste} · #{profilActif.numero}
             </span>
+            {(profilActif.instagram || profilActif.tiktok) && (
+  <div style={{ marginTop: 8, display: "flex", gap: 14, flexWrap: "wrap" }}>
+    {profilActif.instagram && (
+      <a href={`https://instagram.com/${profilActif.instagram.replace("@","")}`}
+        target="_blank" rel="noreferrer"
+        style={{ fontSize: 13, color: "#A8A29E", textDecoration: "none" }}>
+        📸 {profilActif.instagram}
+      </a>
+    )}
+    {profilActif.tiktok && (
+      <a href={`https://tiktok.com/@${profilActif.tiktok.replace("@","")}`}
+        target="_blank" rel="noreferrer"
+        style={{ fontSize: 13, color: "#A8A29E", textDecoration: "none" }}>
+        🎵 {profilActif.tiktok}
+      </a>
+    )}
+  </div>
+)}
           </div>
           <div style={{ marginLeft: "auto" }}>
             {estDansTop5

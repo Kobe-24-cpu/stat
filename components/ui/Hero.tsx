@@ -35,10 +35,7 @@ export default function Hero() {
 
       {/* Contenu */}
       <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 800, padding: "0 20px" }}>
-        <span style={{ color: "#F97316", fontFamily: "'Barlow Condensed', sans-serif", fontSize: 18, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", marginBottom: 15, display: "inline-block" }}>
-          Domine ton jeu • Analyse tes stats
-        </span>
-
+        
         <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(42px, 6vw, 72px)", fontWeight: 900, color: "#F5F5F4", lineHeight: 1, margin: "0 0 20px 0", letterSpacing: 1, textTransform: "uppercase" }}>
           PROPULSE TON BASKETBALL DANS <span style={{ color: "#F97316" }}>UNE AUTRE DIMENSION</span>
         </h1>

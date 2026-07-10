@@ -9,6 +9,8 @@ export interface Joueur {
   surnom?: string;
   numero: string;
   poste: "Meneur" | "Arrière" | "Ailier" | "Ailier Fort" | "Pivot";
+  instagram?: string;  // ← ajouter
+  tiktok?: string;     // ← ajouter
 }
 
 export interface MatchStat {

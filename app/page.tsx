@@ -76,7 +76,7 @@ export default function Home() {
           🎬 HIGHLIGHTS <span style={{ color: "#F97316" }}>APEXUT</span>
         </h2>
         <p style={{ fontSize: 14, color: "#78716C", marginBottom: 24 }}>
-          Sur mobile, glisse vers la droite. Clique sur un média pour le plein écran.
+          Clique sur un média pour le plein écran.
         </p>
 
         <div className="media-gallery-container" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
@@ -158,6 +158,24 @@ export default function Home() {
                   <div style={{ marginTop: 4 }}>
                     <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 4, background: `${POSTE_COLORS[j.poste] || "#444"}22`, color: POSTE_COLORS[j.poste] || "#fff", textTransform: "uppercase", letterSpacing: 0.5 }}>{j.poste}</span>
                     <span style={{ fontSize: 12, color: "#78716C", marginLeft: 8 }}>#{j.numero}</span>
+                    {(j.instagram || j.tiktok) && (
+  <div style={{ marginTop: 4, display: "flex", gap: 10, flexWrap: "wrap" }}>
+    {j.instagram && (
+      <a href={`https://instagram.com/${j.instagram.replace("@","")}`}
+        target="_blank" rel="noreferrer"
+        style={{ fontSize: 11, color: "#78716C", textDecoration: "none" }}>
+        📸 {j.instagram}
+      </a>
+    )}
+    {j.tiktok && (
+      <a href={`https://tiktok.com/@${j.tiktok.replace("@","")}`}
+        target="_blank" rel="noreferrer"
+        style={{ fontSize: 11, color: "#78716C", textDecoration: "none" }}>
+        🎵 {j.tiktok}
+      </a>
+    )}
+  </div>
+)}
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 12, textAlign: "center" }}>
